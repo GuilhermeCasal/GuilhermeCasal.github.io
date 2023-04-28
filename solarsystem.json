@@ -1,0 +1,45 @@
+{
+    "mercury": {
+      "size": 3.2,
+      "texture": "../img/mercury.jpg",
+      "position": 28
+    },
+    "venus": {
+      "size": 5.8,
+      "texture": "../img/venus.jpg",
+      "position": 44
+    },
+    "earth": {
+      "size": 6,
+      "texture": "../img/earth.jpg",
+      "position": 62
+    },
+    "mars": {
+      "size": 4,
+      "texture": "../img/mars.jpg",
+      "position": 78
+    },
+    "jupiter": {
+        "size": 12,
+        "texture": "../img/jupiter.jpg",
+        "position": 100
+    },
+    "saturn": {
+      "size": 10,
+      "texture": "../img/saturn.jpg",
+      "position": 138,
+      "ring": { "innerRadius": 10, "outerRadius": 20, "texture": "../img/saturnring.png" }
+    },
+    "uranus": {
+      "size": 7,
+      "texture": "../img/uranus.jpg",
+      "position": 176,
+      "ring": { "innerRadius": 7, "outerRadius": 12, "texture": "../img/uranusring.png" }
+    },
+    "neptune": {
+        "size": 7,
+        "texture": "../img/neptune.jpg",
+        "position": 200
+    }
+}
+  

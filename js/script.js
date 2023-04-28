@@ -68,51 +68,70 @@ function createPlanet(size, texture, position, ring){
     return {mesh, obj}
 }
 
-const mercuryTexture = [path + 'mercury' + format];
-const mercury = createPlanet(3.2, mercuryTexture, 28);
-mercury.mesh.receiveShadow = true;
-mercury.mesh.castShadow = true;
+//Load json file
+let mercury;
+let venus;
+let earth;
+let mars;
+let jupiter;
+let saturn;
+let uranus;
+let neptune;
 
-const venusTexture = [path + 'venus' + format];
-const venus = createPlanet(5.8, venusTexture, 44);
-venus.mesh.receiveShadow = true; //default
-venus.mesh.castShadow = true; //default
-
-const earthTexture = [path + 'earth' + format];
-const earth = createPlanet(6, earthTexture, 62);
-earth.mesh.receiveShadow = true; //default
-earth.mesh.castShadow = true; //default
-
-const marsTexture = [path + 'mars' + format];
-const mars = createPlanet(4, marsTexture, 78);
-mars.mesh.receiveShadow = true; //default
-mars.mesh.castShadow = true; //default
-
-const jupiterTexture = [path + 'jupiter' + format];
-const jupiter = createPlanet(12, jupiterTexture, 100);
-jupiter.mesh.receiveShadow = true; //default
-jupiter.mesh.castShadow = true; //default
-
-const format2 = '.png';
-
-const saturnTexture = [path + 'saturn' + format];
-const saturnRingTexture = [path + 'saturnring' + format2];
-const saturn = createPlanet(10, saturnTexture, 138, { innerRadius: 10, outerRadius: 20, texture: saturnRingTexture });
-saturn.mesh.receiveShadow = true; //default
-saturn.mesh.castShadow = true; //default
-
-
-const uranusTexture = [path + 'uranus' + format];
-const uranusRingTexture = [path + 'uranusring' + format2];
-const uranus = createPlanet(7, uranusTexture, 176, { innerRadius: 7, outerRadius: 12, texture: uranusRingTexture });
-uranus.mesh.receiveShadow = true; //default
-uranus.mesh.castShadow = true; //default
-
-const neptuneTexture = [path + 'neptune' + format];
-const neptune = createPlanet(7, neptuneTexture, 200);
-neptune.mesh.receiveShadow = true; //default
-neptune.mesh.castShadow = true; //default
-
+fetch('../solarsystem.json')
+  .then(response => response.json())
+  .then(data => {
+    for (const planetName in data) {
+        if(planetName == "mercury"){
+            const Pdata = data[planetName];
+            mercury = createPlanet(Pdata.size,Pdata.texture,Pdata.position);  
+            mercury.mesh.receiveShadow = true;
+            mercury.mesh.castShadow = true;    
+        }
+        if(planetName == "venus"){
+            const Pdata = data[planetName];
+            venus = createPlanet(Pdata.size,Pdata.texture,Pdata.position); 
+            venus.mesh.receiveShadow = true; //default
+            venus.mesh.castShadow = true; //default     
+        }      
+        if(planetName == "earth"){
+            const Pdata = data[planetName];
+            earth = createPlanet(Pdata.size,Pdata.texture,Pdata.position);  
+            earth.mesh.receiveShadow = true; //default
+            earth.mesh.castShadow = true; //default    
+        }
+        if(planetName == "mars"){
+            const Pdata = data[planetName];
+            mars = createPlanet(Pdata.size,Pdata.texture,Pdata.position);   
+            mars.mesh.receiveShadow = true; //default
+            mars.mesh.castShadow = true; //default   
+        }  
+        if(planetName == "jupiter"){
+            const Pdata = data[planetName];
+            jupiter = createPlanet(Pdata.size,Pdata.texture,Pdata.position); 
+            jupiter.mesh.receiveShadow = true; //default
+            jupiter.mesh.castShadow = true; //default     
+        } 
+        if(planetName == "saturn"){
+            const Pdata = data[planetName];
+            saturn = createPlanet(Pdata.size,Pdata.texture,Pdata.position,Pdata.ring); 
+            saturn.mesh.receiveShadow = true; //default
+            saturn.mesh.castShadow = true; //default     
+        } 
+        if(planetName == "uranus"){
+            const Pdata = data[planetName];
+            uranus = createPlanet(Pdata.size,Pdata.texture,Pdata.position,Pdata.ring);  
+            uranus.mesh.receiveShadow = true; //default
+            uranus.mesh.castShadow = true; //default    
+        } 
+        if(planetName == "neptune"){
+            const Pdata = data[planetName];
+            neptune = createPlanet(Pdata.size,Pdata.texture,Pdata.position);  
+            neptune.mesh.receiveShadow = true; //default
+            neptune.mesh.castShadow = true; //default    
+        }      
+    }
+  });
 
 //LIGHT
 const pointLight = new THREE.PointLight(0xFFFFFF, 2, 300);
@@ -165,27 +184,61 @@ const neptuneRotationController = aroundSun.add(neptuneRotation, 'velocity', 0, 
 
 function animate() {
     sun.rotateY(0.005);
-    mercury.mesh.rotateY(0.004);
-    venus.mesh.rotateY(0.002);
-    earth.mesh.rotateY(0.02);
-    mars.mesh.rotateY(0.018);
-    jupiter.mesh.rotateY(0.04);
-    saturn.mesh.rotateY(0.038);
-    uranus.mesh.rotateY(0.03);
-    neptune.mesh.rotateY(0.032);
+    if (mercury) {
+        mercury.mesh.rotateY(0.004);
+        mercury.obj.rotateY(mercuryRotation.velocity);
+    }
+    if (venus) {
+        venus.mesh.rotateY(0.004);
+        venus.obj.rotateY(venusRotation.velocity);
+    }
+    if (earth) {
+        earth.mesh.rotateY(0.004);
+        earth.obj.rotateY(earthRotation.velocity);
+    }
+    if (mars) {
+        mars.mesh.rotateY(0.004);
+        mars.obj.rotateY(marsRotation.velocity);
+    }
+    if (jupiter) {
+        jupiter.mesh.rotateY(0.004);
+        jupiter.obj.rotateY(jupiterRotation.velocity);
+    }
+    if (saturn) {
+        saturn.mesh.rotateY(0.038);
+        saturn.obj.rotateY(saturnRotation.velocity);
+    }
+    if (uranus) {
+        uranus.mesh.rotateY(0.03);
+        uranus.obj.rotateY(uranusRotation.velocity);
+    }
+    if (neptune) {
+        neptune.mesh.rotateY(0.004);
+        neptune.obj.rotateY(neptuneRotation.velocity);
+    }
+    
+    // mercury.mesh.rotateY(0.004);
+    // venus.mesh.rotateY(0.002);
+    // earth.mesh.rotateY(0.02);
+    // mars.mesh.rotateY(0.018);
+    // jupiter.mesh.rotateY(0.04);
+    // saturn.mesh.rotateY(0.038);
+    // uranus.mesh.rotateY(0.03);
+    // neptune.mesh.rotateY(0.032);
 
-    // Around-sun-rotation
-    mercury.obj.rotateY(mercuryRotation.velocity);
-    venus.obj.rotateY(venusRotation.velocity);
-    earth.obj.rotateY(earthRotation.velocity);
-    mars.obj.rotateY(marsRotation.velocity);
-    jupiter.obj.rotateY(jupiterRotation.velocity);
-    saturn.obj.rotateY(saturnRotation.velocity);
-    uranus.obj.rotateY(uranusRotation.velocity);
-    neptune.obj.rotateY(neptuneRotation.velocity);
+    // // Around-sun-rotation
+    // mercury.obj.rotateY(mercuryRotation.velocity);
+    // venus.obj.rotateY(venusRotation.velocity);
+    // earth.obj.rotateY(earthRotation.velocity);
+    // mars.obj.rotateY(marsRotation.velocity);
+    // jupiter.obj.rotateY(jupiterRotation.velocity);
+    // saturn.obj.rotateY(saturnRotation.velocity);
+    // uranus.obj.rotateY(uranusRotation.velocity);
+    // neptune.obj.rotateY(neptuneRotation.velocity);
 
     renderer.render(scene, camera);
     // orbit.update();
+    // requestAnimationFrame(animate);
 }
 
 renderer.setAnimationLoop(animate);
