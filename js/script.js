@@ -147,95 +147,111 @@ pointLight.shadow.camera.far = 500;
 
 //GUI DAT
 const gui = new GUI();
-const aroundSun = gui.addFolder('Planets Velocity');
+const aroundSun = gui.addFolder('Planets Velocity Around the Sun');
 const mercuryRotation = {
     velocity: 0.04,
 };
-const mercuryRotationController = aroundSun.add(mercuryRotation, 'velocity', 0, 0.5, 0.01).name('Mercury Rotation Velocity');
+const mercuryRotationController = aroundSun.add(mercuryRotation, 'velocity', 0, 0.5, 0.01).name('Mercury');
 const venusRotation = {
     velocity: 0.015,
 };
-const venusRotationController = aroundSun.add(venusRotation, 'velocity', 0, 0.2, 0.01).name('Venus Rotation Velocity');
+const venusRotationController = aroundSun.add(venusRotation, 'velocity', 0, 0.2, 0.01).name('Venus');
 const earthRotation = {
     velocity: 0.01,
 };
-const earthRotationController = aroundSun.add(earthRotation, 'velocity', 0, 0.2, 0.01).name('Earth Rotation Velocity');
+const earthRotationController = aroundSun.add(earthRotation, 'velocity', 0, 0.2, 0.01).name('Earth');
 const marsRotation = {
     velocity: 0.008,
 };
-const marsRotationController = aroundSun.add(marsRotation, 'velocity', 0, 0.2, 0.001).name('Mars Rotation Velocity');
+const marsRotationController = aroundSun.add(marsRotation, 'velocity', 0, 0.2, 0.001).name('Mars');
 const jupiterRotation = {
     velocity: 0.002,
 };
-const jupiterRotationController = aroundSun.add(jupiterRotation, 'velocity', 0, 0.2, 0.001).name('Jupiter Rotation Velocity');
+const jupiterRotationController = aroundSun.add(jupiterRotation, 'velocity', 0, 0.2, 0.001).name('Jupiter');
 const saturnRotation = {
     velocity: 0.0009,
 };
-const saturnRotationController = aroundSun.add(saturnRotation, 'velocity', 0, 0.18, 0.0001).name('Saturn Rotation Velocity');
+const saturnRotationController = aroundSun.add(saturnRotation, 'velocity', 0, 0.18, 0.0001).name('Saturn');
 const uranusRotation = {
     velocity: 0.0004,
 };
-const uranusRotationController = aroundSun.add(uranusRotation, 'velocity', 0, 0.18, 0.0001).name('Uranus Rotation Velocity');
+const uranusRotationController = aroundSun.add(uranusRotation, 'velocity', 0, 0.18, 0.0001).name('Uranus');
 const neptuneRotation = {
     velocity: 0.0001,
 };
-const neptuneRotationController = aroundSun.add(neptuneRotation, 'velocity', 0, 0.18, 0.0001).name('Neptune Rotation Velocity');
+const neptuneRotationController = aroundSun.add(neptuneRotation, 'velocity', 0, 0.18, 0.0001).name('Neptune');
 //
+
+const rot = gui.addFolder('Planets Rotation');
+const mercurySelf = {
+    velocity: 0.004,
+};
+const mercurySelfRot = rot.add(mercurySelf, 'velocity', 0, 0.5, 0.01).name('Mercury');
+const venusSelf = {
+    velocity: 0.002,
+};
+const venusSelfRot = rot.add(venusSelf, 'velocity', 0, 0.4, 0.01).name('Venus');
+const earthSelf = {
+    velocity: 0.02,
+};
+const earthSelfRot = rot.add(earthSelf, 'velocity', 0, 0.4, 0.01).name('Earth');
+const marsSelf = {
+    velocity: 0.018,
+};
+const marsSelfRot = rot.add(marsSelf, 'velocity', 0, 0.4, 0.01).name('Mars');
+const jupiterSelf = {
+    velocity: 0.04,
+};
+const jupiterSelfRot = rot.add(jupiterSelf, 'velocity', 0, 0.4, 0.01).name('Jupiter');
+const saturnSelf = {
+    velocity: 0.038,
+};
+const saturnSelfRot = rot.add(saturnSelf, 'velocity', 0, 0.4, 0.01).name('Saturn');
+const uranusSelf = {
+    velocity: 0.03,
+};
+const uranusSelfRot = rot.add(uranusSelf, 'velocity', 0, 0.4, 0.01).name('Uranus');
+const neptuneSelf = {
+    velocity: 0.032,
+};
+const neptuneSelfRot = rot.add(neptuneSelf, 'velocity', 0, 0.4, 0.01).name('Neptune');
+//
+
 
 function animate() {
     sun.rotateY(0.005);
     if (mercury) {
-        mercury.mesh.rotateY(0.004);
+        mercury.mesh.rotateY(mercurySelf.velocity);
         mercury.obj.rotateY(mercuryRotation.velocity);
     }
     if (venus) {
-        venus.mesh.rotateY(0.004);
+        venus.mesh.rotateY(venusSelf.velocity);
         venus.obj.rotateY(venusRotation.velocity);
     }
     if (earth) {
-        earth.mesh.rotateY(0.004);
+        earth.mesh.rotateY(earthSelf.velocity);
         earth.obj.rotateY(earthRotation.velocity);
     }
     if (mars) {
-        mars.mesh.rotateY(0.004);
+        mars.mesh.rotateY(marsSelf.velocity);
         mars.obj.rotateY(marsRotation.velocity);
     }
     if (jupiter) {
-        jupiter.mesh.rotateY(0.004);
+        jupiter.mesh.rotateY(jupiterSelf.velocity);
         jupiter.obj.rotateY(jupiterRotation.velocity);
     }
     if (saturn) {
-        saturn.mesh.rotateY(0.038);
+        saturn.mesh.rotateY(saturnSelf.velocity);
         saturn.obj.rotateY(saturnRotation.velocity);
     }
     if (uranus) {
-        uranus.mesh.rotateY(0.03);
+        uranus.mesh.rotateY(uranusSelf.velocity);
         uranus.obj.rotateY(uranusRotation.velocity);
     }
     if (neptune) {
-        neptune.mesh.rotateY(0.004);
+        neptune.mesh.rotateY(neptuneSelf.velocity);
         neptune.obj.rotateY(neptuneRotation.velocity);
     }
-    
-    // mercury.mesh.rotateY(0.004);
-    // venus.mesh.rotateY(0.002);
-    // earth.mesh.rotateY(0.02);
-    // mars.mesh.rotateY(0.018);
-    // jupiter.mesh.rotateY(0.04);
-    // saturn.mesh.rotateY(0.038);
-    // uranus.mesh.rotateY(0.03);
-    // neptune.mesh.rotateY(0.032);
-
-    // // Around-sun-rotation
-    // mercury.obj.rotateY(mercuryRotation.velocity);
-    // venus.obj.rotateY(venusRotation.velocity);
-    // earth.obj.rotateY(earthRotation.velocity);
-    // mars.obj.rotateY(marsRotation.velocity);
-    // jupiter.obj.rotateY(jupiterRotation.velocity);
-    // saturn.obj.rotateY(saturnRotation.velocity);
-    // uranus.obj.rotateY(uranusRotation.velocity);
-    // neptune.obj.rotateY(neptuneRotation.velocity);
-
     renderer.render(scene, camera);
     // orbit.update();
     // requestAnimationFrame(animate);
