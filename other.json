@@ -1,0 +1,33 @@
+{
+    "planet1": {
+      "size": 3.2,
+      "texture": "../img/planet1.jpeg",
+      "position": 28
+    },
+    "planet2": {
+      "size": 5.8,
+      "texture": "../img/planet2.jpeg",
+      "position": 44
+    },
+    "planet3": {
+      "size": 6,
+      "texture": "../img/planet3.jpeg",
+      "position": 62
+    },
+    "planet4": {
+      "size": 4,
+      "texture": "../img/planet4.jpeg",
+      "position": 78
+    },
+    "planet5": {
+        "size": 12,
+        "texture": "../img/planet5.jpeg",
+        "position": 100
+    },
+    "planet6": {
+      "size": 10,
+      "texture": "../img/planet6.jpeg",
+      "position": 138,
+      "ring": { "innerRadius": 10, "outerRadius": 20, "texture": "../img/saturnring.png" }
+    }
+}

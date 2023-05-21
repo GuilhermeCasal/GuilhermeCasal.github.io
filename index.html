@@ -17,23 +17,82 @@
          
     </script>
     <!--"three/addons/": "https://threejs.org/examples/jsm/"-->
-    <title>ICG Project</title>
+    <title>Solar System</title>
     <style>
         body {
             margin: 0
         }
     </style>
 </head>
+<style>
+    html {
+        background: url('img/stars2.jpeg');
+        /* Adjust background properties as needed */
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .customBox {
+        background-color: transparent;
+        border: 1px solid white; /* White border */
+        color: white; /* Text color */
+        padding: 10px; /* Adjust padding as needed */
+        font-size: 16px; /* Adjust font size as needed */
+        width: 300px; /* Adjust width as needed */
+        height: 40px; /* Adjust height as needed */
+        overflow: hidden;
+    }
+    .customBox option {
+        color: black; /* Change the color of the options */
+        /* Add any additional styling for the options */
+    }
+</style>
 
 <body>
-    <!-- <script src='https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js'></script> -->
+    <select class="customBox" id="mySelect">
+        <option value="0">Select a System:</option>
+        <option value="option1">Solar System</option>
+        <option value="option2">Other System</option>
+    </select>
+    <script>
+		const selectElement = document.getElementById('mySelect');
 
-        <script src="./js/script.js" type="module"></script>
- 
+		selectElement.addEventListener('change', (event) => {
+			const Option = event.target.value;
 
+			switch (Option) {
+                
+				case 'option1':
+					console.log('Script Solar System');
+                    window.location.href='solar_system.html';
+                
+					break;
 
-	<!-- <script type="text/javascript" src="http://threejs.org/build/three.js"></script> -->
+				case 'option2':
+					console.log('Script Other System');
+                    window.location.href='other_system.html';
+					break;
 
-	
+				default:
+					break;
+			}
+		});
+
+        function loadScript(scriptUrl) {
+			// Create a new script element
+			const script = document.createElement('script');
+            script.type = 'module';
+			script.src = scriptUrl;
+
+			// Append the script element to the document body
+			document.body.appendChild(script);
+		}
+	</script>
 </body>
 </html>

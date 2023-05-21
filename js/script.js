@@ -4,6 +4,7 @@ import { OrbitControls } from 'controls';
 import { GUI } from 'gui';
 
 
+
 //Renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -77,6 +78,8 @@ let jupiter;
 let saturn;
 let uranus;
 let neptune;
+
+
 
 fetch('../solarsystem.json')
   .then(response => response.json())
