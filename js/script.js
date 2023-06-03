@@ -20,6 +20,8 @@ const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeig
 const orbit = new OrbitControls(camera,renderer.domElement);
 camera.position.set(-90, 140, 140);
 orbit.update();
+orbit.minDistance = 50;
+orbit.maxDistance = 350;
 
 const ambientLight = new THREE.AmbientLight(0x333333);
 scene.add(ambientLight);
@@ -69,6 +71,43 @@ function createPlanet(size, texture, position, ring){
     return {mesh, obj}
 }
 
+function createPlanetMoon(size, texture, position, moon) {
+    const geo = new THREE.SphereGeometry(size, 30, 30);
+    const mat = new THREE.MeshStandardMaterial({ map: textureLoader.load(texture) });
+    const mesh = new THREE.Mesh(geo, mat);
+    const obj = new THREE.Object3D();
+    obj.add(mesh);
+
+    if (moon) {
+        const moonGeo = new THREE.SphereGeometry(moon.size, 30, 30);
+        const moonMat = new THREE.MeshStandardMaterial({ map: textureLoader.load(moon.texture) });
+        const moonMesh = new THREE.Mesh(moonGeo, moonMat);
+        const moonObj = new THREE.Object3D();
+        moonObj.add(moonMesh);
+        obj.add(moonObj);
+
+        // Set the moon's position and rotation relative to the planet
+        const distance = 4; // Default distance from Earth
+        const initialRotation = 2; // Default initial rotation
+        moonObj.position.set(distance, 0, 0);
+        moonMesh.rotateY(initialRotation);
+        moonObj.rotateY(initialRotation);
+
+        // Add moon properties to the main object for animation purposes
+        obj.moon = {
+            mesh: moonMesh,
+            obj: moonObj,
+            velocity: moon.velocity,
+        };
+    }
+
+    scene.add(obj);
+    mesh.position.x = position;
+
+    return { mesh, obj };
+}
+
+
 //Load json file
 let mercury;
 let venus;
@@ -99,7 +138,7 @@ fetch('../solarsystem.json')
         }      
         if(planetName == "earth"){
             const Pdata = data[planetName];
-            earth = createPlanet(Pdata.size,Pdata.texture,Pdata.position);  
+            earth = createPlanetMoon(Pdata.size,Pdata.texture,Pdata.position,Pdata.moon);  
             earth.mesh.receiveShadow = true; //default
             earth.mesh.castShadow = true; //default    
         }
@@ -234,6 +273,10 @@ function animate() {
     if (earth) {
         earth.mesh.rotateY(earthSelf.velocity);
         earth.obj.rotateY(earthRotation.velocity);
+        if (earth.obj.moon) {
+            const moonRotationSpeed = 0.03; // Adjust the moon's rotation speed as desired
+            earth.obj.moon.obj.rotateY(moonRotationSpeed);
+        }
     }
     if (mars) {
         mars.mesh.rotateY(marsSelf.velocity);

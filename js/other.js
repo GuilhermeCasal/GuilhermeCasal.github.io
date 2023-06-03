@@ -20,6 +20,8 @@ const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeig
 const orbit = new OrbitControls(camera,renderer.domElement);
 camera.position.set(-90, 140, 140);
 orbit.update();
+orbit.minDistance = 50;
+orbit.maxDistance = 350;
 
 const ambientLight = new THREE.AmbientLight(0x333333);
 scene.add(ambientLight);

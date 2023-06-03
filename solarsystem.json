@@ -12,7 +12,8 @@
     "earth": {
       "size": 6,
       "texture": "../img/earth.jpg",
-      "position": 62
+      "position": 62,
+      "moon": "../img/moon.jpeg" 
     },
     "mars": {
       "size": 4,
